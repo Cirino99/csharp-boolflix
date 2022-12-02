@@ -1,0 +1,14 @@
+-) *Ricerca contenuto*
+	1. l'utente seleziona la barra di ricerca
+	2. l'utente digita il contenuto che vuole ricercare
+	3. il sistema presenta una schermata che contiene tutti i contenuti collegati alla ricerca dell'utente
+		- contenuti col titolo che contiene la ricerca
+		- contenuti con persone della ricerca
+		- contenuti con generi della ricerca
+	4. l'utente può *Riprodurre il contenuto*
+	5. in alternativa può vedere *Info del contenuto*
+
+-) *Riprodurre il contenuto*
+	1. l'utente può premere sulla coperina del contenuto
+	2. in alternativa può premere sul tasto play del contenuto
+	3. in presenza di un contenuto già iniziato la riproduzione ripartirà da dove si era precedentemente interrotta
