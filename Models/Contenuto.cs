@@ -11,7 +11,7 @@
         public string Risoluzione { get; set; }
         public List<Caratteristica>? Caratteristiche { get; set; }
         public List<Genere>? Generi { get; set; }
-        public List<Cast>? Casts { get; set; }
+        public List<Attore>? Attori { get; set; }
         public int RegiaId { get; set; }
         public Regia? Regia { get; set; }
     }

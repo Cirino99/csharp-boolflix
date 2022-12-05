@@ -1,6 +1,6 @@
 ﻿namespace csharp_boolflix.Models
 {
-    public class Cast
+    public class Attore
     {
         public int Id { get; set; }
         public string Nome { get; set; }
