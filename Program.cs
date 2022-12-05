@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using csharp_boolflix.Data;
+using csharp_boolflix.Data.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("BoolflixDbContextConnection");builder.Services.AddDbContext<BoolflixDbContext>(options =>
     options.UseSqlServer(connectionString));builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -8,6 +10,8 @@ var connectionString = builder.Configuration.GetConnectionString("BoolflixDbCont
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();  //autoload
+
+builder.Services.AddScoped<IFilmRepository, DbFilmRepository>();
 
 var app = builder.Build();
 

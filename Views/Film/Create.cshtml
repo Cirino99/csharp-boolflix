@@ -1,1 +1,52 @@
-﻿
+﻿@using csharp_boolflix.Data;
+@model FormFilm
+
+<div class="container">
+    <form asp-controller="Pizza" asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <strong>Nome:</strong>
+            <input asp-for="Film.Titolo" class="d-block w-100" />
+            <span asp-validation-for="Film.Titolo" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Categoria:</strong>
+            <select asp-for="Film.RegiaId" rows="10" class="d-block w-100">
+                @foreach (Regia regista in Model.Registi)
+                {
+                    @if (Model.Film.RegiaId == regista.Id)
+                    {
+                        <option value="@regista.Id" selected>@regista.Nome @regista.Cognome</option>
+                    }
+                    else
+                    {
+                        <option value="@regista.Id">@regista.Nome @regista.Cognome</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <strong>Caratteristiche:</strong>
+            <br />
+            @foreach (Caratteristica item in Model.Caratteristiche)
+            {
+                @if (Model.AreCheckedCaratteristiche.Contains(item.Id))
+                {
+                    <input name="AreCheckedCaratteristiche" type="checkbox" value="@item.Id" checked />
+                }
+                else
+                {
+                    <input name="AreCheckedCaratteristiche" type="checkbox" value="@item.Id" />
+                }
+                <span>@item.Nome</span>
+                <br />
+            }
+        </div>
+
+        @*da completare, con tutti i dati del caso*@
+
+        <div class="text-end">
+            <input type="submit" class="btn btn-small btn-info" value="Salva">
+        </div>
+    </form>
+</div>
