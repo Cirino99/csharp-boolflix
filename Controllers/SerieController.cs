@@ -80,6 +80,7 @@ namespace csharp_boolflix.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddStagione(Stagione stagione, int id)
         {
+            stagione.Id = 0;
             stagione.SerieId = id;
             serieRepository.AddStagione(stagione);
             return RedirectToAction("Detail", new { id = stagione.SerieId });

@@ -16,7 +16,7 @@ namespace csharp_boolflix.Data.Repository
         }
         public Serie GetById(int id)
         {
-            return db.Serie.Where(f => f.Id == id).Include("Caratteristiche").Include("Generi").Include("Attori").Include("Regia").Include("Stagioni").FirstOrDefault();
+            return db.Serie.Where(f => f.Id == id).Include("Caratteristiche").Include("Generi").Include("Attori").Include("Regia").Include("Stagioni").Include("Stagioni.Episodi").FirstOrDefault();
         }
         public Serie Create(Serie serie, List<Caratteristica> caratteristiche, List<Genere> generi, List<Attore> attori, Regia regista)
         {
@@ -49,8 +49,6 @@ namespace csharp_boolflix.Data.Repository
         public void AddStagione(Stagione stagione)
         {
             db.Stagioni.Add(stagione);
-            Serie serie = GetById(stagione.SerieId);
-            serie.Stagioni.Add(stagione);
             db.SaveChanges();
         }
         public void AddEpisodio(Episodio episodio)
