@@ -1,4 +1,6 @@
-﻿<div>
+﻿@model List<Film>
+
+<div>
     <h1>Index Film</h1>
 </div>
 
@@ -13,14 +15,13 @@
                     <h5 class="card-title">@film.Titolo</h5>
                     <p class="card-text">@film.Durata minuti</p>
                     <p class="card-text">Prezzo: @film.Risoluzione</p>
-                    @*<a class="btn btn-primary" asp-area="" asp-controller="" asp-action="" asp-route-id="">Dettagli</a>*@
+                    <a class="btn btn-primary" asp-area="" asp-controller="Film" asp-action="Detail" asp-route-id="@film.Id">Dettagli</a>
                 </div>
             </div>
         }
-
     }
     else
     {
-        <h3>Non ci sono pizze al momento</h3>
+        <h3>Non ci sono contenuti al momento</h3>
     }
 </div>

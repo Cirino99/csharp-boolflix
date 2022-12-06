@@ -1,4 +1,5 @@
 ﻿using csharp_boolflix.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace csharp_boolflix.Data.Repository
 {
@@ -15,7 +16,7 @@ namespace csharp_boolflix.Data.Repository
         }
         public Film GetById(int id)
         {
-            return db.Films.Where(f => f.Id == id).FirstOrDefault();
+            return db.Films.Where(f => f.Id == id).Include("Caratteristiche").Include("Generi").Include("Attori").Include("Regia").FirstOrDefault();
         }
         public void Create(Film film, List<Caratteristica> caratteristiche, List<Genere> generi, List<Attore> attori, Regia regista)
         {
@@ -25,6 +26,11 @@ namespace csharp_boolflix.Data.Repository
             film.Regia = regista;
 
             db.Films.Add(film);
+            db.SaveChanges();
+        }
+        public void Delete(Film film)
+        {
+            db.Films.Remove(film);
             db.SaveChanges();
         }
     }

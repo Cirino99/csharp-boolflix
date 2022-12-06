@@ -7,5 +7,6 @@ namespace csharp_boolflix.Data.Repository
         List<Film> All();
         Film GetById(int id);
         void Create (Film film, List<Caratteristica> caratteristiche, List<Genere> generi, List<Attore> attori, Regia regista);
+        void Delete(Film film);
     }
 }

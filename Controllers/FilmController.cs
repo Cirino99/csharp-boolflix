@@ -22,6 +22,11 @@ namespace csharp_boolflix.Controllers
             List<Film> films = filmRepository.All();
             return View(films);
         }
+        public IActionResult Detail(int id)
+        {
+            Film film = filmRepository.GetById(id);
+            return View(film);
+        }
         public IActionResult Create()
         {
             FormFilm formFilm = new FormFilm();
@@ -48,6 +53,19 @@ namespace csharp_boolflix.Controllers
             List<Genere> generi = db.Generi.ToList();
             Regia regista = db.Registi.Where(r => r.Id == formFilm.Film.RegiaId).FirstOrDefault();
             filmRepository.Create(formFilm.Film, caratteristiche, generi, attori, regista);
+
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            Film film = filmRepository.GetById(id);
+
+            if (film == null)
+                return View("NotFound", "La pizza cercata non è stata trovata");
+
+            filmRepository.Delete(film);
 
             return RedirectToAction("Index");
         }
