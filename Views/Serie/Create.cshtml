@@ -1,0 +1,108 @@
+﻿@using csharp_boolflix.Data;
+@model FormSerie
+
+<div class="container">
+    <form asp-controller="Serie" asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <strong>Titolo:</strong>
+            <input asp-for="Serie.Titolo" class="d-block w-100" />
+            <span asp-validation-for="Serie.Titolo" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Anno:</strong>
+            <input asp-for="Serie.Anno" class="d-block w-100" />
+            <span asp-validation-for="Serie.Anno" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Pegi:</strong>
+            <input asp-for="Serie.Pegi" class="d-block w-100" />
+            <span asp-validation-for="Serie.Pegi" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Trama:</strong>
+            <input asp-for="Serie.Trama" class="d-block w-100" />
+            <span asp-validation-for="Serie.Trama" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Copertina:</strong>
+            <input asp-for="Serie.Copertina" class="d-block w-100" />
+            <span asp-validation-for="Serie.Copertina" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Risoluzione:</strong>
+            <input asp-for="Serie.Risoluzione" class="d-block w-100" />
+            <span asp-validation-for="Serie.Risoluzione" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Regia:</strong>
+            <select asp-for="Serie.RegiaId" rows="10" class="d-block w-100">
+                @foreach (Regia regista in Model.Registi)
+                {
+                    @if (Model.Serie.RegiaId == regista.Id)
+                    {
+                        <option value="@regista.Id" selected>@regista.Nome @regista.Cognome</option>
+                    }
+                    else
+                    {
+                        <option value="@regista.Id">@regista.Nome @regista.Cognome</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <strong>Caratteristiche:</strong>
+            <br />
+            @foreach (Caratteristica item in Model.Caratteristiche)
+            {
+                @if (Model.AreCheckedCaratteristiche.Contains(item.Id))
+                {
+                    <input name="AreCheckedCaratteristiche" type="checkbox" value="@item.Id" checked />
+                }
+                else
+                {
+                    <input name="AreCheckedCaratteristiche" type="checkbox" value="@item.Id" />
+                }
+                <span>@item.Nome</span>
+                <br />
+            }
+        </div>
+        <div class="mb-3">
+            <strong>Generi:</strong>
+            <br />
+            @foreach (Genere item in Model.Generi)
+            {
+                @if (Model.AreCheckedGeneri.Contains(item.Id))
+                {
+                    <input name="AreCheckedGeneri" type="checkbox" value="@item.Id" checked />
+                }
+                else
+                {
+                    <input name="AreCheckedGeneri" type="checkbox" value="@item.Id" />
+                }
+                <span>@item.Nome</span>
+                <br />
+            }
+        </div>
+        <div class="mb-3">
+            <strong>Attori:</strong>
+            <br />
+            @foreach (Attore item in Model.Attori)
+            {
+                @if (Model.AreCheckedAttori.Contains(item.Id))
+                {
+                    <input name="AreCheckedAttori" type="checkbox" value="@item.Id" checked />
+                }
+                else
+                {
+                    <input name="AreCheckedAttori" type="checkbox" value="@item.Id" />
+                }
+                <span>@item.Nome</span>
+                <br />
+            }
+        </div>
+        <div class="text-end">
+            <input type="submit" class="btn btn-small btn-info" value="Salva">
+        </div>
+    </form>
+</div>

@@ -12,6 +12,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();  //autoload
 
 builder.Services.AddScoped<IFilmRepository, DbFilmRepository>();
+builder.Services.AddScoped<ISerieRepository, DbSerieRepository>();
 
 var app = builder.Build();
 

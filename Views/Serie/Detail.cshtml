@@ -1,0 +1,51 @@
+﻿@model Serie
+
+@{
+    ViewData["Title"] = Model.Titolo;
+}
+
+<div class="text-center">
+    <h1>Dettaglio Serie</h1>
+</div>
+<section class="ms-5">
+    <h2>Titolo: @Model.Titolo</h2>
+    <img src="@Model.Copertina" alt="film">
+    <p>Trama: @Model.Trama</p>
+    <span>Anno: @Model.Anno</span><br />
+    <span>Pegi: @Model.Pegi</span><br />
+    <span>Risoluzione: @Model.Risoluzione</span><br />
+    <span>Regia: @Model.Regia.Nome @Model.Regia.Cognome</span><br />
+    <div class="d-flex flex-wrap">
+        <h5>Caratteristiche: </h5>
+        <ul>
+            @foreach (Caratteristica item in Model.Caratteristiche)
+            {
+                <li class="badge btn-info">@item.Nome</li>
+            }
+        </ul>
+    </div>
+    <div class="d-flex flex-wrap">
+        <h5>Generi: </h5>
+        <ul>
+            @foreach (Genere item in Model.Generi)
+            {
+                <li class="badge btn-info">@item.Nome</li>
+            }
+        </ul>
+    </div>
+    <div class="d-flex flex-wrap">
+        <h5>Attori: </h5>
+        <ul>
+            @foreach (Attore item in Model.Attori)
+            {
+                <li class="badge btn-info">@item.Nome</li>
+            }
+        </ul>
+    </div>
+    <div class="d-flex flex-wrap">
+        <form asp-controller="Film" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger">Elimina</button>
+        </form>
+    </div>
+</section>
