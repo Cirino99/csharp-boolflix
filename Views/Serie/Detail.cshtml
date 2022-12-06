@@ -42,15 +42,22 @@
             }
         </ul>
     </div>
-    <div class="d-flex flex-wrap">
+    <div>
         <h5>Stagioni: @Model.Stagioni.Count</h5>
         <ul>
-            @foreach (Stagione item in Model.Stagioni)
+            @foreach (Stagione stagione in Model.Stagioni)
             {
                 <li>
                     <div>
-                        @item.Titolo --- Episodi: @item.Episodi.Count
-                        <button class="btn btn-primary">Aggiungi Episodio</button>
+                        @stagione.Titolo --- Episodi: @stagione.Episodi.Count
+                        <ul>
+                            @foreach (Episodio episodio in stagione.Episodi){
+                                <li>
+                                    @episodio.Titolo
+                                </li>
+                            }
+                        </ul>
+                        <a class="btn btn-success" asp-area="" asp-controller="Serie" asp-action="AddEpisodio" asp-route-id="@stagione.Id">Aggiungi Episodio</a>
                     </div>
                 </li>
             }

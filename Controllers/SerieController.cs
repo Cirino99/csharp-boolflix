@@ -46,6 +46,10 @@ namespace csharp_boolflix.Controllers
         {
             if (!ModelState.IsValid)
             {
+                formSerie.Attori = db.Attori.ToList();
+                formSerie.Registi = db.Registi.ToList();
+                formSerie.Caratteristiche = db.Caratteristiche.ToList();
+                formSerie.Generi = db.Generi.ToList();
                 return View(formSerie);
             }
             List<Attore> attori = db.Attori.ToList();
@@ -69,7 +73,6 @@ namespace csharp_boolflix.Controllers
 
             return RedirectToAction("Index");
         }
-
         public IActionResult AddStagione(int id)
         {
             Stagione stagione = new Stagione();
@@ -82,8 +85,31 @@ namespace csharp_boolflix.Controllers
         {
             stagione.Id = 0;
             stagione.SerieId = id;
+            if (!ModelState.IsValid)
+            {
+                return View(stagione);
+            }
             serieRepository.AddStagione(stagione);
             return RedirectToAction("Detail", new { id = stagione.SerieId });
+        }
+        public IActionResult AddEpisodio(int id)
+        {
+            Episodio episodio = new Episodio();
+            episodio.StagioneId = id;
+            return View(episodio);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddEpisodio(Episodio episodio, int id)
+        {
+            episodio.Id = 0;
+            episodio.StagioneId = id;
+            if (!ModelState.IsValid)
+            {
+                return View(episodio);
+            }
+            serieRepository.AddEpisodio(episodio);
+            return RedirectToAction("Index");
         }
     }
 }

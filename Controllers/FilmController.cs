@@ -46,6 +46,10 @@ namespace csharp_boolflix.Controllers
         {
             if (!ModelState.IsValid)
             {
+                formFilm.Attori = db.Attori.ToList();
+                formFilm.Registi = db.Registi.ToList();
+                formFilm.Caratteristiche = db.Caratteristiche.ToList();
+                formFilm.Generi = db.Generi.ToList();
                 return View(formFilm);
             }
             List<Attore> attori = db.Attori.ToList();

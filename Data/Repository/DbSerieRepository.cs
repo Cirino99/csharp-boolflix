@@ -53,7 +53,8 @@ namespace csharp_boolflix.Data.Repository
         }
         public void AddEpisodio(Episodio episodio)
         {
-            throw new NotImplementedException();
+            db.Episodi.Add(episodio);
+            db.SaveChanges();
         }
     }
 }

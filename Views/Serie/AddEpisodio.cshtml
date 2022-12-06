@@ -1,0 +1,25 @@
+﻿@model Episodio
+
+<div class="container">
+    <form asp-controller="Serie" asp-action="AddEpisodio" asp-route-id="@Model.StagioneId" method="post">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <strong>Titolo:</strong>
+            <input asp-for="Titolo" class="d-block w-100" />
+            <span asp-validation-for="Titolo" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Durata:</strong>
+            <input asp-for="Durata" class="d-block w-100" />
+            <span asp-validation-for="Durata" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Trama:</strong>
+            <textarea asp-for="Trama" class="d-block w-100" ></textarea>
+            <span asp-validation-for="Trama" class="text-danger"></span>
+        </div>
+        <div class="text-end">
+            <input type="submit" class="btn btn-small btn-info" value="Salva">
+        </div>
+    </form>
+</div>
