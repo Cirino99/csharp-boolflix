@@ -19,7 +19,8 @@ namespace csharp_boolflix.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            List<Film> films = filmRepository.All();
+            return View(films);
         }
         public IActionResult Create()
         {
@@ -28,10 +29,27 @@ namespace csharp_boolflix.Controllers
             formFilm.Attori = db.Attori.ToList();
             formFilm.Registi = db.Registi.ToList();
             formFilm.Caratteristiche = db.Caratteristiche.ToList();
+            formFilm.Generi = db.Generi.ToList();
             formFilm.AreCheckedGeneri = new List<int>();
             formFilm.AreCheckedAttori = new List<int>();
             formFilm.AreCheckedCaratteristiche = new List<int>();
             return View(formFilm);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(FormFilm formFilm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(formFilm);
+            }
+            List<Attore> attori = db.Attori.ToList();
+            List<Caratteristica> caratteristiche = db.Caratteristiche.ToList();
+            List<Genere> generi = db.Generi.ToList();
+            Regia regista = db.Registi.Where(r => r.Id == formFilm.Film.RegiaId).FirstOrDefault();
+            filmRepository.Create(formFilm.Film, caratteristiche, generi, attori, regista);
+
+            return RedirectToAction("Index");
         }
     }
 }

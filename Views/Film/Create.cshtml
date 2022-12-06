@@ -2,15 +2,45 @@
 @model FormFilm
 
 <div class="container">
-    <form asp-controller="Pizza" asp-action="Create" method="post">
+    <form asp-controller="Film" asp-action="Create" method="post">
         @Html.AntiForgeryToken()
         <div class="mb-3">
-            <strong>Nome:</strong>
+            <strong>Titolo:</strong>
             <input asp-for="Film.Titolo" class="d-block w-100" />
             <span asp-validation-for="Film.Titolo" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <strong>Categoria:</strong>
+            <strong>Anno:</strong>
+            <input asp-for="Film.Anno" class="d-block w-100" />
+            <span asp-validation-for="Film.Anno" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Pegi:</strong>
+            <input asp-for="Film.Pegi" class="d-block w-100" />
+            <span asp-validation-for="Film.Pegi" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Trama:</strong>
+            <input asp-for="Film.Trama" class="d-block w-100" />
+            <span asp-validation-for="Film.Trama" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Copertina:</strong>
+            <input asp-for="Film.Copertina" class="d-block w-100" />
+            <span asp-validation-for="Film.Copertina" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Risoluzione:</strong>
+            <input asp-for="Film.Risoluzione" class="d-block w-100" />
+            <span asp-validation-for="Film.Risoluzione" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Durata:</strong>
+            <input asp-for="Film.Durata" class="d-block w-100" />
+            <span asp-validation-for="Film.Durata" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Regia:</strong>
             <select asp-for="Film.RegiaId" rows="10" class="d-block w-100">
                 @foreach (Regia regista in Model.Registi)
                 {
@@ -42,9 +72,40 @@
                 <br />
             }
         </div>
-
-        @*da completare, con tutti i dati del caso*@
-
+        <div class="mb-3">
+            <strong>Generi:</strong>
+            <br />
+            @foreach (Genere item in Model.Generi)
+            {
+                @if (Model.AreCheckedGeneri.Contains(item.Id))
+                {
+                    <input name="AreCheckedGeneri" type="checkbox" value="@item.Id" checked />
+                }
+                else
+                {
+                    <input name="AreCheckedGeneri" type="checkbox" value="@item.Id" />
+                }
+                <span>@item.Nome</span>
+                <br />
+            }
+        </div>
+        <div class="mb-3">
+            <strong>Attori:</strong>
+            <br />
+            @foreach (Attore item in Model.Attori)
+            {
+                @if (Model.AreCheckedAttori.Contains(item.Id))
+                {
+                    <input name="AreCheckedAttori" type="checkbox" value="@item.Id" checked />
+                }
+                else
+                {
+                    <input name="AreCheckedAttori" type="checkbox" value="@item.Id" />
+                }
+                <span>@item.Nome</span>
+                <br />
+            }
+        </div>
         <div class="text-end">
             <input type="submit" class="btn btn-small btn-info" value="Salva">
         </div>
