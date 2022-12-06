@@ -34,5 +34,28 @@ namespace csharp_boolflix.Data.Repository
             db.Serie.Remove(serie);
             db.SaveChanges();
         }
+        public Stagione GetStagione(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public List<Stagione> GetStagioni(int id)
+        {
+            return db.Stagioni.Where(s => s.SerieId == id).ToList();
+        }
+        public List<Episodio> GetEpisodi(int id)
+        {
+            return db.Episodi.Where(e => e.StagioneId == id).ToList();
+        }
+        public void AddStagione(Stagione stagione)
+        {
+            db.Stagioni.Add(stagione);
+            Serie serie = GetById(stagione.SerieId);
+            serie.Stagioni.Add(stagione);
+            db.SaveChanges();
+        }
+        public void AddEpisodio(Episodio episodio)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

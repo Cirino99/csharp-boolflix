@@ -43,7 +43,22 @@
         </ul>
     </div>
     <div class="d-flex flex-wrap">
-        <form asp-controller="Film" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+        <h5>Stagioni: @Model.Stagioni.Count</h5>
+        <ul>
+            @foreach (Stagione item in Model.Stagioni)
+            {
+                <li>
+                    <div>
+                        @item.Titolo --- Episodi: @item.Episodi.Count
+                        <button class="btn btn-primary">Aggiungi Episodio</button>
+                    </div>
+                </li>
+            }
+        </ul>
+        <a class="btn btn-success" asp-area="" asp-controller="Serie" asp-action="AddStagione" asp-route-id="@Model.Id">Aggiungi Stagione</a>
+    </div>
+    <div class="d-flex flex-wrap">
+        <form asp-controller="Serie" asp-action="Delete" asp-route-id="@Model.Id" method="post">
             @Html.AntiForgeryToken()
             <button type="submit" class="btn btn-danger">Elimina</button>
         </form>

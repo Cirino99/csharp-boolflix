@@ -69,5 +69,20 @@ namespace csharp_boolflix.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult AddStagione(int id)
+        {
+            Stagione stagione = new Stagione();
+            stagione.SerieId = id;
+            return View(stagione);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddStagione(Stagione stagione, int id)
+        {
+            stagione.SerieId = id;
+            serieRepository.AddStagione(stagione);
+            return RedirectToAction("Detail", new { id = stagione.SerieId });
+        }
     }
 }
