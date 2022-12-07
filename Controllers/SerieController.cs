@@ -52,9 +52,24 @@ namespace csharp_boolflix.Controllers
                 formSerie.Generi = db.Generi.ToList();
                 return View(formSerie);
             }
-            List<Attore> attori = db.Attori.ToList();
-            List<Caratteristica> caratteristiche = db.Caratteristiche.ToList();
-            List<Genere> generi = db.Generi.ToList();
+            List<Attore> attori = new List<Attore>();
+            foreach (int id in formSerie.AreCheckedAttori)
+            {
+                Attore attore = db.Attori.Where(a => a.Id == id).FirstOrDefault();
+                attori.Add(attore);
+            }
+            List<Caratteristica> caratteristiche = new List<Caratteristica>();
+            foreach (int id in formSerie.AreCheckedCaratteristiche)
+            {
+                Caratteristica caratteristica = db.Caratteristiche.Where(c => c.Id == id).FirstOrDefault();
+                caratteristiche.Add(caratteristica);
+            }
+            List<Genere> generi = new List<Genere>();
+            foreach (int id in formSerie.AreCheckedGeneri)
+            {
+                Genere genere = db.Generi.Where(g => g.Id == id).FirstOrDefault();
+                generi.Add(genere);
+            }
             Regia regista = db.Registi.Where(r => r.Id == formSerie.Serie.RegiaId).FirstOrDefault();
             Serie serie = serieRepository.Create(formSerie.Serie, caratteristiche, generi, attori, regista);
 

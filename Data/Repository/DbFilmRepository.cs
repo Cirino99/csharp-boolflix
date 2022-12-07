@@ -1,5 +1,6 @@
 ﻿using csharp_boolflix.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace csharp_boolflix.Data.Repository
 {
@@ -32,6 +33,13 @@ namespace csharp_boolflix.Data.Repository
         {
             db.Films.Remove(film);
             db.SaveChanges();
+        }
+
+        public List<Film> GetGenereFilm(string genere)
+        {
+            Genere item = db.Generi.Where(g => g.Nome == genere).FirstOrDefault();
+            return db.Films.Where(f => f.Generi.Contains(item)).ToList();
+            //return db.Films.Where(f => f.Generi.Where( g => g.Nome == genere)).ToList();
         }
     }
 }

@@ -2,8 +2,56 @@
     Layout = "_LayoutGuest";
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h3>Film d'Azione</h3>
+<div class="d-flex justify-content-center flex-wrap js_action_film">
+    <!-- qui verranno mostrati gli elementi -->
 </div>
+<h3>Commedie</h3>
+<div class="d-flex justify-content-center flex-wrap js_commedie_film">
+    <!-- qui verranno mostrati gli elementi -->
+</div>
+<h3>Film Romantici</h3>
+<div class="d-flex justify-content-center flex-wrap js_romantic_film">
+    <!-- qui verranno mostrati gli elementi -->
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        GetFilm("Film d'Azione", ".js_action_film");
+        GetFilm("Commedie", ".js_commedie_film");
+        GetFilm("Film Romantici", ".js_romantic_film");
+
+        // chiamata api per film d'azione
+        function GetFilm(genere,container) {
+            axios.get('/api/contenuto/getfilm', {
+                    params: {
+                        genere: genere,
+                    }
+                }).then(res => {
+                RenderFilm(res.data, container);
+            }).catch(error => {
+                console.log(error);
+            });
+        }
+
+        //modifica dom
+        function RenderFilm(data, container) {
+            console.log(container);
+            document.querySelector(container).classList.remove('d-none');
+            document.querySelector(container).innerHTML = '';
+            data.forEach(film => {
+                document.querySelector(container).innerHTML +=
+                    `
+                        <div class="card m-2" style="width: 18rem;">
+                            <img src="${film.copertina}" class="card-img-top" alt="film">
+                            <div class="card-body">
+                                <h5 class="card-title">${film.titolo}</h5>
+                                <p class="card-text">${film.durata} minuti</p>
+                                <a class="btn btn-primary" href="@Url.Action("Detail","Home")/${film.id}">Dettagli</a>
+                            </div>
+                        </div>
+                    `;
+            });
+        }
+    </script>
+}

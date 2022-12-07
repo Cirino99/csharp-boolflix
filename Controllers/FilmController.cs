@@ -3,6 +3,7 @@ using csharp_boolflix.Data.Repository;
 using csharp_boolflix.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Packaging.Signing;
 
 namespace csharp_boolflix.Controllers
 {
@@ -52,9 +53,24 @@ namespace csharp_boolflix.Controllers
                 formFilm.Generi = db.Generi.ToList();
                 return View(formFilm);
             }
-            List<Attore> attori = db.Attori.ToList();
-            List<Caratteristica> caratteristiche = db.Caratteristiche.ToList();
-            List<Genere> generi = db.Generi.ToList();
+            List<Attore> attori = new List<Attore>();
+            foreach (int id in formFilm.AreCheckedAttori)
+            {
+                Attore attore = db.Attori.Where( a => a.Id == id).FirstOrDefault();
+                attori.Add(attore);
+            }
+            List<Caratteristica> caratteristiche = new List<Caratteristica>();
+            foreach (int id in formFilm.AreCheckedCaratteristiche)
+            {
+                Caratteristica caratteristica = db.Caratteristiche.Where(c => c.Id == id).FirstOrDefault();
+                caratteristiche.Add(caratteristica);
+            }
+            List<Genere> generi = new List<Genere>();
+            foreach (int id in formFilm.AreCheckedGeneri)
+            {
+                Genere genere = db.Generi.Where(g => g.Id == id).FirstOrDefault();
+                generi.Add(genere);
+            }
             Regia regista = db.Registi.Where(r => r.Id == formFilm.Film.RegiaId).FirstOrDefault();
             filmRepository.Create(formFilm.Film, caratteristiche, generi, attori, regista);
 
