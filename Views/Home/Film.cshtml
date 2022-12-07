@@ -29,15 +29,15 @@
             data.forEach(film => {
                 document.querySelector(container).innerHTML +=
                     `
-                                <div class="card m-2" style="width: 18rem;">
-                                    <img src="${film.copertina}" class="card-img-top" alt="film">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${film.titolo}</h5>
-                                        <p class="card-text">${film.durata} minuti</p>
-                                        <a class="btn btn-primary" href="@Url.Action("Detail","Home")/${film.id}">Dettagli</a>
-                                    </div>
-                                </div>
-                            `;
+                        <div class="card m-2" style="width: 18rem;">
+                            <img src="${film.copertina}" class="card-img-top" alt="film">
+                            <div class="card-body">
+                                <h5 class="card-title">${film.titolo}</h5>
+                                <p class="card-text">${film.durata} minuti</p>
+                                <a class="btn btn-primary" href="@Url.Action("Detail","Home")/${film.id}">Dettagli</a>
+                            </div>
+                        </div>
+                    `;
             });
         }
     </script>
