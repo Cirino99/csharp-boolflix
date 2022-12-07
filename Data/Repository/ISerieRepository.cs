@@ -13,5 +13,6 @@ namespace csharp_boolflix.Data.Repository
         void AddStagione(Stagione stagione);
         List<Episodio> GetEpisodi(int id);
         void AddEpisodio(Episodio episodio);
+        List<Serie> GetGenereSerie(string genere);
     }
 }

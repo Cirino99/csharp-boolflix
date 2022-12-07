@@ -28,14 +28,14 @@
                         genere: genere,
                     }
                 }).then(res => {
-                RenderFilm(res.data, container);
+                Render(res.data, container);
             }).catch(error => {
                 console.log(error);
             });
         }
 
         //modifica dom
-        function RenderFilm(data, container) {
+        function Render(data, container) {
             console.log(container);
             document.querySelector(container).classList.remove('d-none');
             document.querySelector(container).innerHTML = '';

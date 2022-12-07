@@ -56,5 +56,10 @@ namespace csharp_boolflix.Data.Repository
             db.Episodi.Add(episodio);
             db.SaveChanges();
         }
+        public List<Serie> GetGenereSerie(string genere)
+        {
+            Genere item = db.Generi.Where(g => g.Nome == genere).FirstOrDefault();
+            return db.Serie.Where(s => s.Generi.Contains(item)).ToList();
+        }
     }
 }

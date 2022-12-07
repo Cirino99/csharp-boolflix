@@ -17,10 +17,25 @@ namespace csharp_boolflix.Controllers.Api
             filmRepository = _filmRepository;
             serieRepository = _serieRepository;
         }
+        public ActionResult GetAllFilm()
+        {
+            List<Film> films = filmRepository.All();
+            return Ok(films);
+        }
         public ActionResult GetFilm(string genere)
         {
             List<Film> films = filmRepository.GetGenereFilm(genere);
             return Ok(films);
+        }
+        public ActionResult GetAllSerie()
+        {
+            List<Serie> serie = serieRepository.All();
+            return Ok(serie);
+        }
+        public ActionResult GetSerie(string genere)
+        {
+            List<Serie> serie = serieRepository.GetGenereSerie(genere);
+            return Ok(serie);
         }
     }
 }

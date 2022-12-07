@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "_LayoutGuest";
+    ViewData["Title"] = "Film";
+}
+
+<h3>Film disponibili</h3>
+<div class="d-flex justify-content-center flex-wrap js_film">
+    <!-- qui verranno mostrati gli elementi -->
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        GetFilm(".js_film");
+
+        // chiamata api per film d'azione
+        function GetFilm(container) {
+            axios.get('/api/contenuto/getallfilm').then(res => {
+                Render(res.data, container);
+            }).catch(error => {
+                console.log(error);
+            });
+        }
+
+        //modifica dom
+        function Render(data, container) {
+            console.log(container);
+            document.querySelector(container).classList.remove('d-none');
+            document.querySelector(container).innerHTML = '';
+            data.forEach(film => {
+                document.querySelector(container).innerHTML +=
+                    `
+                                <div class="card m-2" style="width: 18rem;">
+                                    <img src="${film.copertina}" class="card-img-top" alt="film">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${film.titolo}</h5>
+                                        <p class="card-text">${film.durata} minuti</p>
+                                        <a class="btn btn-primary" href="@Url.Action("Detail","Home")/${film.id}">Dettagli</a>
+                                    </div>
+                                </div>
+                            `;
+            });
+        }
+    </script>
+}
